@@ -42,10 +42,8 @@ router.get('/car/:id', async (req, res, _next) => {
             if (car) {
                 
                 res.json(car)
-            }
-            else {
-                res.status(404).json({ message: 'Car not found' });
-            }
+            } 
+            
 
         })
     
