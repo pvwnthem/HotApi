@@ -8,23 +8,6 @@ const router = express.Router();
 
 
 
-async function getCarByID(id: string) {
-    try {
-        await mongo.connect();
-        (await db.collections()).forEach(async (collection) => {
-            const col = db.collection(collection.collectionName);
-            const car = await col.findOne({ "Toy #": id });
-            if (car) {
-                return car;
-            }
-
-        })
-
-        
-    } catch (error) {
-        console.log(error);
-    } 
-}
 
 
 router.get("/", (req, res) => {
@@ -52,7 +35,20 @@ router.get('/health', async (_req, res, _next) => {
 // route to get a car by id regardless of year
 
 router.get('/car/:id', async (req, res, _next) => {
-    res.json(await getCarByID(req.params.id));
+    await mongo.connect();
+        const car = (await db.collections()).forEach(async (collection) => {
+            const col = db.collection(collection.collectionName);
+            const car = await col.findOne({ "Toy #": req.params.id });
+            if (car) {
+                
+                res.json(car)
+            }
+            else {
+                res.status(404).json({ message: 'Car not found' });
+            }
+
+        })
+    
     
 });
 
