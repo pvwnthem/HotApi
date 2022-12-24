@@ -2,9 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "esModuleInterop": true,
-        "paths": {
-            "@routes/*": ["./src/routes/*"]
-        }
+        
     },
     "exclude": [
         "node_modules"
