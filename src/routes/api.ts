@@ -23,9 +23,7 @@ async function getCarByID(id: string) {
         
     } catch (error) {
         console.log(error);
-    } finally {
-        await mongo.close();
-    }
+    } 
 }
 
 
