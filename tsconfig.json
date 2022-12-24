@@ -3,7 +3,7 @@
         "module": "commonjs",
         "esModuleInterop": true,
         "paths": {
-            "@routes/*": ["./routes/*"]
+            "@routes/*": ["./src/routes/*"]
         }
     },
     "exclude": [
