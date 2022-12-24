@@ -1,0 +1,8 @@
+{
+    "name": "HotApi",
+    "description": "a REST api for hotwheels collectable cars",
+    "authors": "pvwn",
+    "version": "1.0.0",
+    "main": "index.ts",
+    "dependencies": {}
+}
