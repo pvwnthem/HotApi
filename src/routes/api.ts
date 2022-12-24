@@ -1,5 +1,4 @@
 import  express  from "express";
-import color from 'sscolors'
 
 const router = express.Router();
 
@@ -24,6 +23,7 @@ router.get('/health', async (_req, res, _next) => {
         res.status(503).send();
     }
 });
+
 
 
 export default router;
