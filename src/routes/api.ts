@@ -35,18 +35,21 @@ router.get('/health', async (_req, res, _next) => {
 // route to get a car by id regardless of year
 
 router.get('/car/:id', async (req, res, _next) => {
+    let found = false
     await mongo.connect();
         const car = (await db.collections()).forEach(async (collection) => {
             const col = db.collection(collection.collectionName);
             const car = await col.findOne({ "Toy #": req.params.id });
             if (car) {
-                
+                found = true
                 res.json(car)
             } 
             
 
         })
-    
+    if(!found) {
+        res.status(404).json({ error: 'Car not found' })
+    }
     
 });
 
