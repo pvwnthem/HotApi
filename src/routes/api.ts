@@ -2,7 +2,7 @@ import  express  from "express";
 import { MongoClient, Db } from 'mongodb';
 
 const mongo = new MongoClient('mongodb://localhost:27017');
-const db: Db = mongo.db('test');
+const db: Db = mongo.db('full');
 
 const router = express.Router();
 
@@ -35,21 +35,23 @@ router.get('/health', async (_req, res, _next) => {
 // route to get a car by id regardless of year
 
 router.get('/car/:id', async (req, res, _next) => {
-    let found = false
+    console.log(req.params.id, "hit")
+    let payload = [];
     await mongo.connect();
-        const car = (await db.collections()).forEach(async (collection) => {
-            const col = db.collection(collection.collectionName);
-            const car = await col.findOne({ "Toy #": req.params.id });
-            if (car) {
-                found = true
-                res.json(car)
-            } 
-            
 
-        })
-    if(!found) {
-        res.status(404).json({ error: 'Car not found' })
+    const collection = db.collection('cars');
+
+    await collection.find({ id: req.params.id }).forEach((doc) => {
+        
+        payload.push(doc);
+    });
+    if (payload.length === 0) {
+        res.status(404).json({ message: 'Not found' });
+    } else {
+        res.status(200).json(payload);
     }
+
+   
     
 });
 
